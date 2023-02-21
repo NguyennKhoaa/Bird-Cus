@@ -21,7 +21,7 @@ export default function GiamGia() {
           color: "grey.800",
         }}
       >
-        <Typography gutterBottom variant="h4">
+        <Typography gutterBottom variant="h4" style={{ paddingTop: "40px" }}>
           Giảm giá 30% cho lần hẹn đầu tiên!
         </Typography>
 
@@ -34,7 +34,9 @@ export default function GiamGia() {
       </CardContent>
 
       <Box>
-        <Button variant="contained">Hẹn gặp ngay</Button>
+        <Button style={{ background: "orange" }} variant="contained">
+          Hẹn gặp ngay
+        </Button>
       </Box>
     </Card>
   );

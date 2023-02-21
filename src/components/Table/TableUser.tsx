@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Layout from "../Appbar/Layout";
 import Appbar from "../Appbar/Appbar";
-import { Typography } from "@mui/material";
+import { Avatar, Box, Chip, Typography } from "@mui/material";
 import useEffectOnce from "../hook/useEffectOnce";
 import { useAppDispatch } from "../redux/store";
 import { useSelector } from "react-redux";
 import { selectAccountState } from "../services/account/account.selector";
 import { fetchAccountApi } from "../services/account/account.action";
+import axios from "axios";
+import { styled } from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
+const columns: { name: string }[] = [
+  { name: "Tên" },
+  { name: "Loại" },
+  { name: "Ngày" },
+  { name: "Trạng thái" },
+  // { name: "" },
+];
 interface Column {
   id: "name" | "code" | "population" | "size" | "density";
   label: string;
@@ -24,60 +33,47 @@ interface Column {
   format?: (value: number) => string;
 }
 
-const columns: readonly Column[] = [
-  { id: "name", label: "Tên", minWidth: 170 },
-  { id: "code", label: "Loại", minWidth: 100 },
-  {
-    id: "population",
-    label: "Ngày",
-    minWidth: 170,
-    align: "right",
-    format: (value: number) => value.toLocaleString("en-US"),
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
   },
-  {
-    id: "size",
-    label: "Trạng Thái",
-    minWidth: 170,
-    align: "right",
-    format: (value: number) => value.toLocaleString("en-US"),
+  "&:last-child td, &:last-child th": {
+    border: 0,
   },
-];
+}));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
 interface Data {
-  name: string;
+  id: string;
+  imageUrl: string;
+  email: string;
+  fullName: string;
+  dob: string;
+  telephone: string;
+  address: string;
+  role: string;
   code: string;
-  population: number;
-  size: number;
-  density: number;
+  dateCreate: string;
+  status: string;
 }
 
-function createData(
-  name: string,
-  code: string,
-  population: number,
-  size: number
-): Data {
-  const density = population / size;
-  return { name, code, population, size, density };
+interface ITableUser {
+  statusCode: string;
+  content: string;
+  data: Data[];
+  totalpage: number;
+  pagesize: number;
+  pagenumber: number;
 }
-
-const rows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
 
 const TableUser = (): JSX.Element => {
   const [page, setPage] = React.useState(0);
@@ -95,15 +91,32 @@ const TableUser = (): JSX.Element => {
   };
   const dispatch = useAppDispatch();
   const accountState = useSelector(selectAccountState);
-  useEffectOnce(() => {
-    dispatch(
-      fetchAccountApi({
-        search: "",
-        pagesize: 0,
-        pagenumber: 0,
+
+  const [listUser, setListUser] = useState<ITableUser>();
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "https://swpbirdboardingv1.azurewebsites.net/api/v1/Accounts/GetAccountList?pagesize=10&pagenumber=1",
+    })
+      .then((rs) => {
+        console.log("data", rs.data);
+
+        setListUser(rs.data);
       })
-    );
-  });
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  // useEffectOnce(() => {
+  //   dispatch(
+  //     fetchAccountApi({
+  //       search: "",
+  //       pagesize: 0,
+  //       pagenumber: 0,
+  //     })
+  //   );
+  // });
 
   return (
     <Layout>
@@ -117,66 +130,116 @@ const TableUser = (): JSX.Element => {
         }}
       >
         <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table
+            sx={{ minWidth: 650, tableLayout: "fixed" }}
+            aria-label="simple table"
+          >
             <TableHead>
-              <Typography
-                style={{
-                  marginLeft: "15px",
-                  marginBottom: "20px",
-                  marginTop: "20px",
-                  fontWeight: "bold",
-                }}
-              >
-                Tất cả người dùng
-              </Typography>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
+              <TableRow sx={{ backgroundColor: "rgb(244, 246, 248)" }}>
+                {columns.map((item) => {
+                  return (
+                    <StyledTableCell
+                      key={item.name}
+                      align="center"
+                      sx={{ borderBottom: "none" }}
+                    >
+                      <Typography
+                        component="h3"
+                        color="white"
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {item.name}
+                      </Typography>
+                    </StyledTableCell>
+                  );
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
+              {listUser?.data.map((row, index) => {
+                return (
+                  <StyledTableRow key={row.id}>
+                    {/* <StyledTableCell
+                      component="th"
+                      scope="row"
+                      align="center"
+                      sx={{ borderBottom: "none" }}
                     >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+                      {index +
+                        rowsPerPage * (accountState.result.currentPage - 1) +
+                        1}
+                    </StyledTableCell> */}
+
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      align="center"
+                      sx={{ borderBottom: "none", justifyContent: "center" }}
+                    >
+                      <Box style={{ display: "flex", alignItems: "center" }}>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={row.imageUrl}
+                          style={{ marginRight: "10px" }}
+                        />
+                        {row.fullName}
+                      </Box>
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align="center"
+                      sx={{ borderBottom: "none" }}
+                    >
+                      {row.role}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align="center"
+                      sx={{ borderBottom: "none" }}
+                    >
+                      {row.dateCreate.split("T")[0]}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      align="center"
+                      sx={{ borderBottom: "none", fontWeight: "bold" }}
+                    >
+                      <Chip
+                        label={row.status}
+                        style={{
+                          width: "80px",
+                          backgroundColor:
+                            row.status === "Active"
+                              ? "rgb(162, 252, 162)"
+                              : "red",
+                        }}
+                      />
+                    </StyledTableCell>
+
+                    {/* <ActionUser
+                      rowsPerPage={rowsPerPage}
+                      id={row.id}
+                      status={status}
+                      account={row}
+                    /> */}
+                  </StyledTableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <Box>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={listUser?.pagesize as number}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Box>
       </Paper>
     </Layout>
   );

@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea } from "@mui/material";
 import logo from "../../images/luffy.jpg";
+import StarIcon from "@mui/icons-material/Star";
 
 export default function CardCarousel(props: any) {
   const responsive = {
@@ -29,7 +30,7 @@ export default function CardCarousel(props: any) {
     },
   };
   return (
-    <div>
+    <div style={{ marginLeft: "30px" }}>
       <Carousel responsive={responsive}>
         <div>
           <Card sx={{ maxWidth: 345 }}>
@@ -43,12 +44,42 @@ export default function CardCarousel(props: any) {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  CLB Chim cảnh Thủ Đức
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  100 lồng | Sân thoáng mát
                 </Typography>
+                <Box style={{ display: "flex" }}>
+                  <Box>
+                    <Typography
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                        paddingTop: "15px",
+                      }}
+                    >
+                      100K/ngày
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Box
+                      style={{
+                        display: "flex",
+                        paddingTop: "15px",
+                        paddingLeft: "50px",
+                      }}
+                    >
+                      <Box style={{ color: "orange" }}>
+                        <StarIcon />
+                      </Box>
+                      <Box>
+                        <Typography style={{ marginTop: "4px" }}>
+                          4.6
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -65,12 +96,42 @@ export default function CardCarousel(props: any) {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  CLB Chim cảnh Thủ Đức
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  100 lồng | Sân thoáng mát
                 </Typography>
+                <Box style={{ display: "flex" }}>
+                  <Box>
+                    <Typography
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                        paddingTop: "15px",
+                      }}
+                    >
+                      100K/ngày
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Box
+                      style={{
+                        display: "flex",
+                        paddingTop: "15px",
+                        paddingLeft: "50px",
+                      }}
+                    >
+                      <Box style={{ color: "orange" }}>
+                        <StarIcon />
+                      </Box>
+                      <Box>
+                        <Typography style={{ marginTop: "4px" }}>
+                          4.6
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -87,12 +148,42 @@ export default function CardCarousel(props: any) {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  CLB Chim cảnh Thủ Đức
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  100 lồng | Sân thoáng mát
                 </Typography>
+                <Box style={{ display: "flex" }}>
+                  <Box>
+                    <Typography
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                        paddingTop: "15px",
+                      }}
+                    >
+                      100K/ngày
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Box
+                      style={{
+                        display: "flex",
+                        paddingTop: "15px",
+                        paddingLeft: "50px",
+                      }}
+                    >
+                      <Box style={{ color: "orange" }}>
+                        <StarIcon />
+                      </Box>
+                      <Box>
+                        <Typography style={{ marginTop: "4px" }}>
+                          4.6
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -109,12 +200,42 @@ export default function CardCarousel(props: any) {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                  CLB Chim cảnh Thủ Đức
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  100 lồng | Sân thoáng mát
                 </Typography>
+                <Box style={{ display: "flex" }}>
+                  <Box>
+                    <Typography
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                        paddingTop: "15px",
+                      }}
+                    >
+                      100K/ngày
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Box
+                      style={{
+                        display: "flex",
+                        paddingTop: "15px",
+                        paddingLeft: "50px",
+                      }}
+                    >
+                      <Box style={{ color: "orange" }}>
+                        <StarIcon />
+                      </Box>
+                      <Box>
+                        <Typography style={{ marginTop: "4px" }}>
+                          4.6
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>

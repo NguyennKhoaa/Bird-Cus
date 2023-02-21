@@ -15,6 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import bird from "../../images/bird.png";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -159,7 +160,7 @@ const Appbar = (): JSX.Element => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -167,15 +168,8 @@ const Appbar = (): JSX.Element => {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
+          </IconButton> */}
+          <img src={bird} alt="bird" width={70} height={70} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

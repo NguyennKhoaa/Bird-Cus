@@ -13,6 +13,8 @@ const WelcomeDashboard = (): JSX.Element => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
+        paddingTop: "30px",
+        paddingBottom: "30px",
       }}
     >
       <CardContent
@@ -33,8 +35,29 @@ const WelcomeDashboard = (): JSX.Element => {
           Hãy đăng kí trở thành đối tác của chúng tôi ngay để có cơ hội kiếm
           thêm thu nhập hàng tháng
         </Typography>
-        <Button variant="contained">Tìm hiểu ngay</Button>
-        <Button variant="contained">Đăng kí ngay</Button>
+        <Button
+          style={{
+            background: "orange",
+            borderRadius: "10px",
+            color: "white",
+            width: "200px",
+            height: "40px",
+          }}
+        >
+          Tìm hiểu ngay
+        </Button>
+        <Button
+          style={{
+            background: "orange",
+            borderRadius: "10px",
+            color: "white",
+            marginLeft: "10px",
+            width: "190px",
+            height: "40px",
+          }}
+        >
+          Đăng kí ngay
+        </Button>
 
         {/* <Button variant='contained'>Go Now</Button> */}
       </CardContent>
